@@ -13,21 +13,21 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
       
-      - name: Download opengrep binary
+      - name: "Install Opengrep"
+        env:
+          RELEASE_VERSION: "v1.0.0-alpha.11"
         run: |
-          # Download the tar.gz archive from the opengrep release page.
-          wget https://github.com/opengrep/opengrep/releases/download/v1.2.3/opengrep-linux-amd64.tar.gz
-          # Extract the archive.
-          tar -xzf opengrep-linux-amd64.tar.gz
-          # Make the binary executable.
-          chmod +x opengrep
-          # Move the binary to a directory in PATH (optional).
-          sudo mv opengrep /usr/local/bin/
-
-      - name: Run Scan
-        run: |
-          # Run scan using automatic configuration and output results in SARIF format
-          opengrep --config auto --sarif -o output.sarif
+              set -e
+              echo "Download Opengrep"
+              curl -sSfL \
+                -o "/usr/local/bin/opengrep" \
+                https://github.com/opengrep/opengrep/releases/download/${RELEASE_VERSION}/opengrep_manylinux_x86
+              chmod +x /usr/local/bin/opengrep
+              echo "Opengrep installed"
+              opengrep --version
+      
+      - name: "Run Opengrep"
+        run: opengrep scan --metrics=off --sarif-output ./output.sarif .
 
       - name: Upload to Prisma Cloud
         env:

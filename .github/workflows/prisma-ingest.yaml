@@ -15,7 +15,7 @@ jobs:
       
       - name: "Install Opengrep"
         env:
-          RELEASE_VERSION: "v1.0.0-alpha.12"
+          RELEASE_VERSION: "v1.0.0-alpha.11"
         run: |
               set -e
               echo "Download Opengrep"
@@ -27,7 +27,7 @@ jobs:
               opengrep --version
       
       - name: "Run Opengrep"
-        run: opengrep scan --sarif-output ./output.sarif .
+        run: opengrep scan --metrics=off --sarif-output ./output.sarif .
 
       - name: Upload to Prisma Cloud
         env:

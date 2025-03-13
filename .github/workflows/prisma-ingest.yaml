@@ -15,7 +15,7 @@ jobs:
       
       - name: "Install Opengrep"
         env:
-          RELEASE_VERSION: "v1.0.0-alpha.11"
+          RELEASE_VERSION: "v1.0.0-alpha.17"
         run: |
               set -e
               echo "Download Opengrep"

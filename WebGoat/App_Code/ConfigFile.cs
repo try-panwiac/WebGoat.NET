@@ -26,7 +26,7 @@ namespace OWASP.WebGoat.NET.App_Code
         {
             string comment = string.Empty;
             
-            //It's all or nothing here buddy.
+            //It's all or nothing here buddy. Tada
             foreach (string line in File.ReadAllLines(_filePath))
             {
                 
